@@ -12,9 +12,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @Entity
-@Table(name="Disease")
-@XmlRootElement(name="disease")
-@XmlType(propOrder={"d_id","d_name","d_symptom","d_description","d_treatment","d_date","d_location","d_temperature","org_code","trust_flag","user_id"})
+@Table(name="DISEASE")
+//@XmlRootElement(name="disease")
+//@XmlType(propOrder={"d_id","d_name","d_symptom","d_description","d_treatment","d_date","d_location","d_temperature","org_code","trust_flag","user_id"})
 
 public class Disease {
     @Id
@@ -47,7 +47,7 @@ public class Disease {
     private String org_code;
     
     @Column(name="trust_flag")
-    private boolean trust_flag;
+    private int trust_flag;
     
     @Column(name="user_id")
     private String user_id;
@@ -134,11 +134,11 @@ public class Disease {
     }
 
     @XmlElement
-    public boolean isTrust_flag() {
+    public int isTrust_flag() {
         return trust_flag;
    }
 
-    public void setTrust_flag(boolean trust_flag) {
+    public void setTrust_flag(int trust_flag) {
         this.trust_flag = trust_flag;
     }
 

@@ -34,4 +34,31 @@ public class UserDao {
    }
    
    
+   
+    public String saveUser(User user)
+    {
+        Session session = null;
+         try{
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            session.save(user);
+//            session.createQuery("Insert into User(user_id) values :ID").setParameter("ID", id);
+            session.getTransaction().commit();
+           }
+        catch(Exception E)
+        {
+            if(session != null)
+               session.getTransaction().rollback();
+            return E.toString();
+        }
+        finally
+        {
+            if(session!=null)
+                session.close();
+        }
+        return "TRUE";
+    }
+   
+   
+   
 }

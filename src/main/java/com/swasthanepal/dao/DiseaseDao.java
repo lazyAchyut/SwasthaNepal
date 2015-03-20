@@ -2,6 +2,7 @@
 package com.swasthanepal.dao;
 
 import com.swasthanepal.model.Disease;
+import com.swasthanepal.pojo.DiseasePojo;
 import com.swasthanepal.util.HibernateUtil;
 import java.util.List;
 import org.hibernate.Session;
@@ -63,10 +64,53 @@ public class DiseaseDao {
     }
     
     
-    
+    public List<Disease> getDiseaseByName(String name)
+    {
+        Session session = null;
+        List<Disease> disease = null;
+        
+        try{
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            disease = session.createQuery("from Disease D where D.d_name LIKE :NAME").setParameter("NAME", name + '%').list();
+            session.getTransaction().commit();
+           }
+        catch(Exception E)
+        {
+            if(session != null)
+                session.getTransaction().rollback();
+        }
+        finally
+        {
+            if(session!=null)
+                session.close();
+        }
+       return disease;
+    }
   
     
-    
+    public String saveDisease(Disease disease)
+    {
+        Session session = null;
+         try{
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            session.saveOrUpdate(disease);
+            session.getTransaction().commit();
+           }
+        catch(Exception E)
+        {
+            if(session != null)
+               session.getTransaction().rollback();
+            return E.toString();
+        }
+        finally
+        {
+            if(session!=null)
+                session.close();
+        }
+        return "TRUE";
+    }
     
     
     
