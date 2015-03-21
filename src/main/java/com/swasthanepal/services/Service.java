@@ -19,7 +19,7 @@ import org.hibernate.Session;
 
 @Path("/disease/")
 public class Service {
-     private DiseaseDao diseaseDao = new DiseaseDao();
+     private final DiseaseDao diseaseDao = new DiseaseDao();
     
      
      @GET
@@ -32,7 +32,7 @@ public class Service {
     @GET
     @Path("/getDiseaseByLocation/{location}/{temperature}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List <Disease> getDiseaseByLocation(@PathParam("location") String location, @PathParam("temperature") float temperature)
+    public List<Disease> getDiseaseByLocation(@PathParam("location") String location, @PathParam("temperature") float temperature)
     {
         return diseaseDao.getDiseasesByLocation(location,temperature);
     }
@@ -49,6 +49,16 @@ public class Service {
   
     
     
+    @GET
+    @Path("getDiseaseByName/{dname}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Disease> searchByName(@PathParam("dname") String dname)
+    {
+        return diseaseDao.getDiseaseByName(dname);
+    }
+    
+    
+        
    @POST
    @Path("/saveDisease")
    @Consumes(MediaType.APPLICATION_JSON)
@@ -72,24 +82,6 @@ public class Service {
           
        
    }
-
-    
-    @GET
-    @Path("getDiseaseByName/{dname}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Disease> searchByName(@PathParam("dname") String dname)
-    {
-        return diseaseDao.getDiseaseByName(dname);
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+ 
     
 }

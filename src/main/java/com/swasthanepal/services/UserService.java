@@ -1,8 +1,11 @@
 
 package com.swasthanepal.services;
 
+import com.swasthanepal.dao.DiseaseDao;
 import com.swasthanepal.dao.UserDao;
+import com.swasthanepal.model.Disease;
 import com.swasthanepal.model.User;
+import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -10,10 +13,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
-@Path("user")
+@Path("/user")
 public class UserService {
     
    
@@ -31,33 +32,59 @@ public class UserService {
     @GET
     @Path("/checkUser/{user_id}")
     @Produces(MediaType.TEXT_PLAIN)
-    public String checkUser(@PathParam("user_id") String user_id)
+    public String checkUserGET(@PathParam("user_id") String user_id)
     {
        
         if(userDao.verifyUser(user_id)!= null)
         {
-//            return Response.ok().entity("User Already Exists").build();
              return "TRUE";
         }
             
         else
-            return "FALSE";
-//             return Response.status(Status.BAD_REQUEST).build();
-        
+        {
+            User users = new User();
+            users.setUser_id(user_id);
+            if(userDao.saveUser(users))
+                return "FALSE and new user created";
+            else
+                return "False but could't create new user";
+            
+        }
+    }
+    
+//    this method must be via post so update ur client side and we will delete get method
+    @POST
+    @Path("/checkUser")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String checkUserPOST(String user_id)
+    {
+       
+        if(userDao.verifyUser(user_id)!= null)
+        {
+             return "TRUE";
+        }
+            
+        else
+        {
+            User users = new User();
+            users.setUser_id(user_id);
+            if(userDao.saveUser(users))
+                return "FALSE and new user created";
+            else
+                return "False but could't create new user";
+            
+        }
     }
     
     @POST
-    @Path("/saveUser")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String saveuser(User user)
+    @Path("/myContribution")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Disease> myContribution(String user_id)
     {
-       User users = new User();
-       users.setUser_id("Achyutpokhrel");
-      return userDao.saveUser(users);
-           
-       
-        
+        DiseaseDao diseaseDao = new DiseaseDao();
+        return diseaseDao.getMyContribution(user_id);
     }
+    
+
     
 }
