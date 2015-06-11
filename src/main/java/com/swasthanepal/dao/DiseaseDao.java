@@ -69,7 +69,7 @@ public class DiseaseDao {
         try{
             session = sessionFactory.openSession();
             session.beginTransaction();
-            disease = session.createQuery("from Disease D where D.d_name LIKE :NAME").setParameter("NAME",  name).list();
+            disease = session.createQuery("from Disease D where D.d_name = :NAME order by d_date desc").setParameter("NAME",  name).list();
             session.getTransaction().commit();
            }
         catch(Exception E)
@@ -109,6 +109,57 @@ public class DiseaseDao {
         return "TRUE";
     }
     
+//    public String updateDisease(Disease disease)
+//    {
+//        Session session = null;
+//         try{
+//            session = sessionFactory.openSession();
+//            session.beginTransaction();
+//            session.update(disease);
+//            session.getTransaction().commit();
+//           }
+//        catch(Exception E)
+//        {
+//            if(session != null)
+//               session.getTransaction().rollback();
+//            return E.toString();
+//        }
+//        finally
+//        {
+//            if(session!=null)
+//                session.close();
+//        }
+//        return "TRUE";
+//    }
+    
+    public String deleteDisease(int id)
+    {
+        Session session = null;
+         try{
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+//            session.createQuery("Delete from Disease D where D.d_id = :ID").setParameter("ID", id);
+            
+            Disease disease = new Disease();
+            disease.setD_id(id);
+            session.delete(disease);
+            
+            session.getTransaction().commit();
+           }
+        catch(Exception E)
+        {
+            if(session != null)
+               session.getTransaction().rollback();
+            return E.toString();
+        }
+        finally
+        {
+            if(session!=null)
+                session.close();
+        }
+        return "TRUE";
+    }
+    
     public List<Disease> getMyContribution(String user_id)
     {
         Session session = null;
@@ -117,7 +168,7 @@ public class DiseaseDao {
         try{
             session = sessionFactory.openSession();
             session.beginTransaction();
-            disease = session.createQuery("select d_name, d_symptom, d_description, d_treatment, d_date, d_temperature, d_location from Disease D where user_id = :ID").setParameter("ID", user_id).list();
+            disease = session.createQuery("from Disease D where user_id = :ID").setParameter("ID", user_id).list();
             session.getTransaction().commit();
         }catch(Exception Ex)
         {
@@ -131,13 +182,56 @@ public class DiseaseDao {
         }
         return disease;
     }
+        
+    public List<Disease> getOrgContribution(String org_code)
+    {
+        Session session = null;
+        List<Disease> disease = null;
+        
+        try{
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            disease = session.createQuery("from Disease D where org_code = :CODE order by d_date desc").setParameter("CODE", org_code).list();
+             session.getTransaction().commit();
+        }catch(Exception Ex)
+        {
+            if(session != null)
+                session.getTransaction().rollback();
+            return null;
+        }finally
+        {
+            if(session != null)
+                session.close();                           
+        }
+        return disease;
+        
+    }
     
     
     
-    
-    
-    
-    
+     public List<Disease> getDisease(int d_id)
+    {
+        Session session = null;
+        List<Disease> disease = null;
+        
+        try{
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            disease = session.createQuery("from Disease D where D.d_id = :D_ID").setParameter("D_ID", d_id).list();
+            session.getTransaction().commit();
+           }
+        catch(Exception E)
+        {
+            if(session != null)
+                session.getTransaction().rollback();
+        }
+        finally
+        {
+            if(session!=null)
+                session.close();
+        }
+       return disease;
+    }
     
     
     

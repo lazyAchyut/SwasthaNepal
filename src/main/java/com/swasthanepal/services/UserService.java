@@ -79,12 +79,21 @@ public class UserService {
     @POST
     @Path("/myContribution")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Disease> myContribution(String user_id)
+    public List <Disease> myContribution(String user_id)
     {
         DiseaseDao diseaseDao = new DiseaseDao();
         return diseaseDao.getMyContribution(user_id);
     }
     
-
+    @POST
+    @Path("/orgContribution")
+//    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Disease> orgContribution(String org_code)
+    {
+        DiseaseDao diseaseDao = new DiseaseDao();
+        return diseaseDao.getOrgContribution(org_code);
+    }
+ 
     
 }

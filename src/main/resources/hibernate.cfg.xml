@@ -20,6 +20,7 @@
         <property name="show_sql">true</property>
         
         <mapping class="com.swasthanepal.model.Disease"/>
-         <mapping class="com.swasthanepal.model.User"/>
+        <mapping class="com.swasthanepal.model.User"/>
+         <mapping class="com.swasthanepal.model.Organization"/>
   </session-factory>
 </hibernate-configuration>

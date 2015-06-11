@@ -56,6 +56,14 @@ public class Service {
     {
         return diseaseDao.getDiseaseByName(dname);
     }
+
+    @GET
+    @Path("getDiseaseByName-web/{dname}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Disease> searchByNameForWeb(@PathParam("dname") String dname)
+    {
+        return diseaseDao.getDiseaseByNameForWeb(dname);
+    }
     
     
         
@@ -63,25 +71,39 @@ public class Service {
    @Path("/saveDisease")
    @Consumes(MediaType.APPLICATION_JSON)
    @Produces(MediaType.TEXT_PLAIN)
-   public String saveDisease(DiseasePojo diseasePojo)
-   {
-               Disease disease = new Disease();
-               
-               disease.setD_name(diseasePojo.getD_name());
-               disease.setD_symptom(diseasePojo.getD_symptom());
-               disease.setD_description(diseasePojo.getD_description());
-               disease.setD_treatment(diseasePojo.getD_treatment());
-               disease.setD_date(diseasePojo.getD_date());
-               disease.setD_location(diseasePojo.getD_location());
-               disease.setD_temperature(diseasePojo.getD_temperature());
-               disease.setOrg_code(diseasePojo.getOrg_code());
-               disease.setUser_id(diseasePojo.getUser_id());
-               disease.setTrust_flag(diseasePojo.getTrust_flag());
-               
-               return diseaseDao.saveDisease(disease);
-          
-       
+   public String saveDisease(Disease disease)
+   {             
+        return diseaseDao.saveDisease(disease);       
    }
- 
+   
+   @POST
+   @Path("/getDisease")
+   @Produces(MediaType.APPLICATION_JSON)
+   public List<Disease> getDisease(int d_id)
+   {
+       return diseaseDao.getDisease(d_id);
+   }
     
+  
+   
+   @POST
+   @Path("/updateDisease")
+   @Consumes(MediaType.APPLICATION_JSON)
+   @Produces(MediaType.TEXT_PLAIN)
+   public String updateDisease(Disease disease)
+   { 
+//               return diseaseDao.updateDisease(disease);     
+               return diseaseDao.saveDisease(disease);     
+   }
+   
+   @POST
+   @Path("/deleteDisease")
+   public String delete(int id)
+   {
+       return diseaseDao.deleteDisease(id);
+//       return id;
+   }
+   
+   
+   
 }

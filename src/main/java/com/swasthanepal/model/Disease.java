@@ -8,8 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+
 
 @Entity
 @Table(name="DISEASE")
@@ -52,6 +51,41 @@ public class Disease {
     @Column(name="user_id")
     private String user_id;
 
+        public Disease()
+        {
+            
+        }
+       public Disease(int id, String d_name, String d_symptom, String d_description, String d_treatment, String d_date, String d_location, float d_temperature, String org_code, String user_id, int trust_flag) {
+        this.d_id = id;
+        this.d_name = d_name;
+        this.d_symptom = d_symptom;
+        this.d_description = d_description;
+        this.d_treatment = d_treatment;
+        this.d_date = d_date;
+        this.d_location = d_location;
+        this.d_temperature = d_temperature;
+        this.org_code = org_code;
+        this.user_id = user_id;
+        this.trust_flag = trust_flag;
+    }
+       
+    public Disease(String d_name, String d_symptom, String d_description, String d_treatment, String d_date, String d_location, float d_temperature, String org_code, String user_id, int trust_flag) {
+        this.d_name = d_name;
+        this.d_symptom = d_symptom;
+        this.d_description = d_description;
+        this.d_treatment = d_treatment;
+        this.d_date = d_date;
+        this.d_location = d_location;
+        this.d_temperature = d_temperature;
+        this.org_code = org_code;
+        this.user_id = user_id;
+        this.trust_flag = trust_flag;
+    }
+    
+    
+       
+    
+    
    @XmlElement
     public int getD_id() {
         return d_id;
@@ -134,7 +168,7 @@ public class Disease {
     }
 
     @XmlElement
-    public int isTrust_flag() {
+    public int getTrust_flag() {
         return trust_flag;
    }
 
@@ -150,13 +184,8 @@ public class Disease {
     public void setUser_id(String user_id) {
         this.user_id = user_id;
     }
+ 
     
-//    @Override
-//    public Disease toString() {
-//    return new StringBuffer(" First Name : ").append(this.firstName)
-//	                .append(" Last Name : ").append(this.lastName)
-//	                .append(" Age : ").append(this.age).append(" ID : ")
-//	                .append(this.id).toString();
-//	    }
+    
     
 }

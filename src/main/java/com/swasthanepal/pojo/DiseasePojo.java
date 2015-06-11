@@ -3,6 +3,7 @@ package com.swasthanepal.pojo;
 
 
 public class DiseasePojo {
+    private int d_id;
    private String d_name;
    private String d_symptom;
    private String d_description;
@@ -32,10 +33,29 @@ public class DiseasePojo {
         this.trust_flag = trust_flag;
     }
    
+       public DiseasePojo(int id, String d_name, String d_symptom, String d_description, String d_treatment, String d_date, String d_location, float d_temperature, String org_code, String user_id, int trust_flag) {
+        this.d_id = id;
+        this.d_name = d_name;
+        this.d_symptom = d_symptom;
+        this.d_description = d_description;
+        this.d_treatment = d_treatment;
+        this.d_date = d_date;
+        this.d_location = d_location;
+        this.d_temperature = d_temperature;
+        this.org_code = org_code;
+        this.user_id = user_id;
+        this.trust_flag = trust_flag;
+    }
+
+    public int getD_id() {
+        return d_id;
+    }
+
+    public void setD_id(int d_id) {
+        this.d_id = d_id;
+    }
    
-   
-   
-   
+      
     public String getD_name() {
         return d_name;
     }
