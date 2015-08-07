@@ -17,13 +17,12 @@ import javax.ws.rs.core.MediaType;
 @Path("/user")
 public class UserService {
     
-   
-    
+      
     @GET
     @Path("/")
     public String output()
     {
-        return "fine";
+        return "<h3>Welcome To Swastha Nepal Web Services</h3";
     }
     
     

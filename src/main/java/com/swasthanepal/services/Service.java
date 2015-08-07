@@ -4,7 +4,6 @@ package com.swasthanepal.services;
 
 import com.swasthanepal.dao.DiseaseDao;
 import com.swasthanepal.model.Disease;
-import com.swasthanepal.pojo.DiseasePojo;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -13,8 +12,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import org.hibernate.Session;
 
 
 @Path("/disease/")
@@ -39,7 +36,7 @@ public class Service {
    
     
     @GET
-    @Path("/getAllDiseasesInJSON")
+    @Path("/latest")
     @Produces(MediaType.APPLICATION_JSON)
     public List <Disease> getAll()
     {
@@ -57,14 +54,7 @@ public class Service {
         return diseaseDao.getDiseaseByName(dname);
     }
 
-    @GET
-    @Path("getDiseaseByName-web/{dname}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Disease> searchByNameForWeb(@PathParam("dname") String dname)
-    {
-        return diseaseDao.getDiseaseByNameForWeb(dname);
-    }
-    
+   
     
         
    @POST
@@ -79,11 +69,19 @@ public class Service {
    @POST
    @Path("/getDisease")
    @Produces(MediaType.APPLICATION_JSON)
-   public List<Disease> getDisease(int d_id)
+   public Disease getDisease(int d_id)
    {
        return diseaseDao.getDisease(d_id);
    }
-    
+   
+   
+   @GET
+   @Path("/getDisease/{d_id}")
+   @Produces(MediaType.APPLICATION_JSON)
+   public Disease getDisease_GET(@PathParam("d_id") int d_id)
+   {
+       return diseaseDao.getDisease(d_id);
+   }
   
    
    @POST

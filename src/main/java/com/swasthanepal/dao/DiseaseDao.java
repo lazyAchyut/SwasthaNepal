@@ -2,6 +2,7 @@
 package com.swasthanepal.dao;
 
 import com.swasthanepal.model.Disease;
+import com.swasthanepal.model.Organization;
 import com.swasthanepal.util.HibernateUtil;
 import java.util.List;
 import org.hibernate.Session;
@@ -44,7 +45,7 @@ public class DiseaseDao {
         try{
             session = sessionFactory.openSession();
             session.beginTransaction();
-            diseases = session.createQuery("from Disease d").list();
+            diseases = session.createQuery("from Disease").setMaxResults(10).list();
             session.getTransaction().commit();
         }catch(Exception ex){
             if(session != null){
@@ -84,6 +85,8 @@ public class DiseaseDao {
         }
        return disease;
     }
+    
+
   
     
     public String saveDisease(Disease disease)
@@ -209,15 +212,15 @@ public class DiseaseDao {
     
     
     
-     public List<Disease> getDisease(int d_id)
+     public Disease getDisease(int d_id)
     {
         Session session = null;
-        List<Disease> disease = null;
+        Disease disease = null;
         
         try{
             session = sessionFactory.openSession();
             session.beginTransaction();
-            disease = session.createQuery("from Disease D where D.d_id = :D_ID").setParameter("D_ID", d_id).list();
+            disease = (Disease) session.createQuery("from Disease D where D.d_id = :D_ID").setParameter("D_ID", d_id).uniqueResult();
             session.getTransaction().commit();
            }
         catch(Exception E)
