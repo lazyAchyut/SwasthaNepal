@@ -18,12 +18,6 @@ import javax.ws.rs.core.MediaType;
 public class UserService {
     
       
-    @GET
-    @Path("/")
-    public String output()
-    {
-        return "<h3>Welcome To Swastha Nepal Web Services</h3";
-    }
     
     
     UserDao userDao = new UserDao();
