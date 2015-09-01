@@ -14,18 +14,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 
+//diseases related services
+//used for save, retrieve, view list of diseases
 @Path("/disease/")
 public class Service {
      private final DiseaseDao diseaseDao = new DiseaseDao();
     
-     
-     @GET
-     @Path("/")
-     public String sdf()
-     {
-         return "200k";
-     }
-     
+    //returns disease based on location and temperature
+    //diseases are ordered on the basis of temperature if requested temperature exits     
     @GET
     @Path("/getDiseaseByLocation/{location}/{temperature}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -35,17 +31,18 @@ public class Service {
     }
    
     
+    //returns list of 10 diseases 
     @GET
     @Path("/latest")
     @Produces(MediaType.APPLICATION_JSON)
     public List <Disease> getAll()
     {
-        return diseaseDao.getAllDiseases();
+        return diseaseDao.getLatest();
     }
     
   
     
-    
+    //return list of requested diseases by name
     @GET
     @Path("getDiseaseByName/{dname}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -56,7 +53,7 @@ public class Service {
 
    
     
-        
+   //to save disease provided by user    
    @POST
    @Path("/saveDisease")
    @Consumes(MediaType.APPLICATION_JSON)
@@ -66,6 +63,7 @@ public class Service {
         return diseaseDao.saveDisease(disease);       
    }
    
+   //get disease on the basis of its disease id using post method
    @POST
    @Path("/getDisease")
    @Produces(MediaType.APPLICATION_JSON)
@@ -75,6 +73,7 @@ public class Service {
    }
    
    
+    //get disease on the basis of its disease id using get method
    @GET
    @Path("/getDisease/{d_id}")
    @Produces(MediaType.APPLICATION_JSON)
@@ -84,6 +83,7 @@ public class Service {
    }
   
    
+   //to update disease
    @POST
    @Path("/updateDisease")
    @Consumes(MediaType.APPLICATION_JSON)
@@ -94,6 +94,8 @@ public class Service {
                return diseaseDao.saveDisease(disease);     
    }
    
+   //to delete disease
+   //instead of post use DELETE verb
    @POST
    @Path("/deleteDisease")
    public String delete(int id)

@@ -14,14 +14,15 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+//this servie is used for registering user
 @Path("/user")
 public class UserService {
-    
       
-    
-    
     UserDao userDao = new UserDao();
    
+    //to check user is registered or not
+    //if yes return true
+    //else register this user
     @GET
     @Path("/checkUser/{user_id}")
     @Produces(MediaType.TEXT_PLAIN)
@@ -45,7 +46,7 @@ public class UserService {
         }
     }
     
-//    this method must be via post so update ur client side and we will delete get method
+   //  this method must be via post so update android client side and we will delete get method
     @POST
     @Path("/checkUser")
     @Produces(MediaType.TEXT_PLAIN)
@@ -69,6 +70,7 @@ public class UserService {
         }
     }
     
+    //to get list of diseases contributed by that user
     @POST
     @Path("/myContribution")
     @Produces(MediaType.APPLICATION_JSON)
@@ -78,6 +80,7 @@ public class UserService {
         return diseaseDao.getMyContribution(user_id);
     }
     
+    //list of diseases contributed by organization
     @POST
     @Path("/orgContribution")
 //    @Consumes(MediaType.TEXT_PLAIN)

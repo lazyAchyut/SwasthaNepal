@@ -38,7 +38,7 @@ public class DiseaseDao {
     }
    
    
-    public List<Disease> getAllDiseases(){
+    public List<Disease> getLatest(){
        List< Disease> diseases = null;
         Session session = null;
         

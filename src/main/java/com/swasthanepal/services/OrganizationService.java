@@ -1,12 +1,8 @@
 
 package com.swasthanepal.services;
 
-import com.swasthanepal.dao.DiseaseDao;
 import com.swasthanepal.dao.OrganizationDao;
-import com.swasthanepal.model.Disease;
 import com.swasthanepal.model.Organization;
-import java.util.List;
-import javax.print.DocFlavor;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -16,19 +12,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 
+
+//this services is for organizational client
 @Path("/organization/")
 public class OrganizationService {
     OrganizationDao organizationDao = new OrganizationDao();
     
-     @GET
-     @Path("/")
-     public String sdf()
-     {
-         return "200k";
-     }
     
-    
-    
+    // returns organizational details   
     @GET
     @Path("/getinformation/{org_code}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -38,6 +29,7 @@ public class OrganizationService {
 
     }
     
+    //update organization profile    
     @POST
     @Path("/updateOrganization")
     @Consumes(MediaType.APPLICATION_JSON)
